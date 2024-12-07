@@ -13,37 +13,54 @@
             margin: 0;
             background-color: #f0f0f0;
         }
-        iframe {
+        #player {
             width: 80%;
             height: 450px;
-            border: none;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <!-- YouTube Iframe -->
-    <iframe id="youtubePlayer" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&enablejsapi=1"></iframe>
+    <div id="player"></div>
 
     <script>
-        const iframe = document.getElementById('youtubePlayer');
+        // Laden der YouTube IFrame API
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        // Nach 2 Sekunden den Ton aktivieren und Lautstärke auf 50% setzen
-        setTimeout(() => {
-            iframe.contentWindow.postMessage(JSON.stringify({
-                event: "command",
-                func: "unMute"
-            }), "*");
+        let player;
 
-            iframe.contentWindow.postMessage(JSON.stringify({
-                event: "command",
-                func: "setVolume",
-                args: [50]
-            }), "*");
+        // Initialisierung des YouTube-Players
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '450',
+                width: '80%',
+                videoId: 'dQw4w9WgXcQ', // YouTube-Video-ID
+                playerVars: {
+                    autoplay: 1, // Automatisches Abspielen
+                    mute: 1, // Stummschaltung
+                    controls: 1, // Steuerungen anzeigen
+                },
+                events: {
+                    onReady: onPlayerReady,
+                }
+            });
+        }
 
-            console.log("Lautstärke auf 50% gesetzt und Ton aktiviert.");
-        }, 2000);
+        // Wenn der Player bereit ist
+        function onPlayerReady(event) {
+            console.log("YouTube-Player bereit.");
+
+            // Nach 2 Sekunden Ton aktivieren und Lautstärke auf 50% setzen
+            setTimeout(() => {
+                player.unMute(); // Stummschaltung deaktivieren
+                player.setVolume(50); // Lautstärke auf 50%
+                console.log("Lautstärke auf 50% gesetzt.");
+            }, 2000);
+        }
     </script>
 </body>
 </html>
