@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weihnachtliches Video mit Play-Button</title>
+    <title>Weihnachtliches Video mit Auto-Play</title>
     <style>
         body {
             display: flex;
@@ -22,7 +22,7 @@
         iframe {
             width: 100%;
             height: 100%;
-            display: none; /* Das Video ist zunächst versteckt */
+            display: none; /* Versteckt das Video bis zum Play */
         }
         .play-button {
             position: absolute;
@@ -56,7 +56,7 @@
         <div class="play-button-text">Klick mich!</div>
         <!-- Eingebettetes Video von Google Drive -->
         <iframe id="video" 
-            src="https://drive.google.com/file/d/170_zH4A1Bm5JH9DVcQWcw7Ow_3OYJmCl/preview"
+            src="https://drive.google.com/file/d/170_zH4A1Bm5JH9DVcQWcw7Ow_3OYJmCl/preview?autoplay=1&mute=0"
             allowfullscreen allow="autoplay">
         </iframe>
     </div>
@@ -73,6 +73,10 @@
 
             // Zeige das Video an
             video.style.display = 'block';
+
+            // Lade das Video neu mit Autoplay
+            const src = video.getAttribute('src');
+            video.setAttribute('src', src + "&autoplay=1");
         }
     </script>
 </body>
