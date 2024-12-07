@@ -12,20 +12,19 @@
             align-items: center;
             height: 100vh; /* Vollbildhöhe */
             margin: 0;
-            background-color: #f0f0f0; /* Optionaler Hintergrund */
+            background-color: #f0f0f0; /* Optional: Hintergrundfarbe */
         }
 
         /* Video skalieren */
         video {
-            max-width: 80%; /* Breite anpassen */
-            max-height: 80%; /* Höhe anpassen */
-            border: 2px solid #000; /* Optional: Rahmen */
+            max-width: 80%; /* Beschränkt die Breite auf 80% des Bildschirms */
+            max-height: 80%; /* Beschränkt die Höhe auf 80% des Bildschirms */
+            border: 2px solid #000; /* Optional: Schwarzer Rahmen */
             border-radius: 10px; /* Optional: Abgerundete Ecken */
         }
     </style>
 </head>
 <body>
-    <h1 style="position: absolute; top: 10px; width: 100%; text-align: center;">Video Autoplay Demo</h1>
     <video src="https://drive.google.com/uc?id=170_zH4A1Bm5JH9DVcQWcw7Ow_3OYJmCl" autoplay controls>
         Your browser does not support the video tag.
     </video>
