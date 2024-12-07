@@ -46,6 +46,7 @@
                 },
                 events: {
                     onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
                 }
             });
         }
@@ -60,6 +61,15 @@
                 player.setVolume(50); // Lautstärke auf 50%
                 console.log("Lautstärke auf 50% gesetzt.");
             }, 2000);
+        }
+
+        // Überwachung des Player-Status
+        function onPlayerStateChange(event) {
+            // Wenn das Video pausiert wird (state 2)
+            if (event.data === YT.PlayerState.PAUSED) {
+                console.warn("Video wurde pausiert. Starte erneut...");
+                player.playVideo(); // Startet das Video erneut
+            }
         }
     </script>
 </body>
