@@ -3,62 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video with Background Audio</title>
+    <title>Mega Video Embed</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
         }
-        video {
-            width: 80%;
-            height: auto;
-            max-width: 1000px;
-            max-height: 600px;
-            border: 3px solid #000;
+        iframe {
+            border: none;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <!-- Video -->
-    <video id="myVideo" src="https://raw.githubusercontent.com/Surize/video-host/main/y2mate.com%20-%20Rick%20Astley%20Never%20Gonna%20Give%20You%20Up%20Official%20Music%20Video_720.mp4" autoplay muted controls>
-        Your browser does not support the video tag.
-    </video>
-
-    <!-- Hintergrund-Audio -->
-    <audio id="backgroundAudio" src="https://raw.githubusercontent.com/Surize/video-host/main/y2mate.com%20-%20Rick%20Astley%20Never%20Gonna%20Give%20You%20Up%20Official%20Music%20Video.mp3" autoplay loop>
-        Your browser does not support the audio tag.
-    </audio>
-
-    <script>
-        const video = document.getElementById('myVideo');
-        const audio = document.getElementById('backgroundAudio');
-
-        // Starte Video und Audio synchron
-        window.addEventListener('load', () => {
-            try {
-                video.play();
-                audio.play();
-                console.log("Video und Audio laufen synchron.");
-            } catch (error) {
-                console.error("Autoplay blockiert:", error);
-            }
-        });
-
-        // Synchronisiere Audio mit Video
-        video.addEventListener('pause', () => {
-            audio.pause();
-        });
-
-        video.addEventListener('play', () => {
-            audio.play();
-        });
-    </script>
+    <!-- Video Embed von Mega -->
+    <iframe width="640" height="360" frameborder="0"
+        src="https://mega.nz/embed/9spQIRKb#Zkwlkj9cDVNiglsb3Ez1vDQtqkwN6WXzGMJXrWLjcPk"
+        allowfullscreen></iframe>
 </body>
 </html>
