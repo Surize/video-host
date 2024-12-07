@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Autoplay with Interaction</title>
+    <title>Video Autoplay with Volume Adjustment</title>
     <style>
         /* Zentrierung des Inhalts */
         body {
@@ -25,46 +25,26 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: Schatten */
         }
-
-        /* Button-Styling */
-        button {
-            position: absolute;
-            bottom: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
-    <video id="myVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" muted controls>
+    <video id="myVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted controls>
         Your browser does not support the video tag.
     </video>
-    <button id="playButton">Play Video</button>
 
     <script>
         const video = document.getElementById('myVideo');
-        const playButton = document.getElementById('playButton');
 
-        // Stellt sicher, dass der Button das Video mit Ton abspielt
-        playButton.addEventListener('click', () => {
-            video.muted = false; // Deaktiviert Stummmodus
-            video.volume = 0.5; // Setzt die Lautstärke auf 50%
-            video.play().then(() => {
-                console.log("Video wird abgespielt.");
-                playButton.style.display = 'none'; // Versteckt den Button nach dem Start
-            }).catch(error => {
-                console.error("Autoplay wurde blockiert:", error);
-            });
+        // Warte, bis das Video abgespielt wird
+        video.addEventListener('play', () => {
+            console.log("Video gestartet. Lautstärke wird bald angepasst...");
+
+            // Nach 3 Sekunden die Lautstärke hochsetzen
+            setTimeout(() => {
+                video.muted = false; // Deaktiviert Stummschaltung
+                video.volume = 0.5; // Setzt Lautstärke auf 50%
+                console.log("Lautstärke auf 50% erhöht.");
+            }, 3000); // 3000ms = 3 Sekunden
         });
     </script>
 </body>
