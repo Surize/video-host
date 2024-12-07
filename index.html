@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Video Embed</title>
+    <title>Weihnachtliches Video mit Play-Button</title>
     <style>
         body {
             display: flex;
@@ -12,19 +12,68 @@
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .video-container {
+            position: relative;
+            width: 640px;
+            height: 360px;
         }
         iframe {
+            width: 100%;
+            height: 100%;
+            display: none; /* Das Video ist zunächst versteckt */
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: url('https://img.icons8.com/fluency/96/christmas-star.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            outline: none;
+        }
+        .play-button-text {
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            font-weight: bold;
+            color: #d40000;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <!-- Eingebettetes Video von Mega -->
-    <iframe width="640" height="360" frameborder="0" 
-        src="https://mega.nz/embed/09ZSEbYY#ZkwIki9cDVNiglsb3Ez1vDQtqkwN6WXzGMJXrWLjcPk"
-        allowfullscreen allow="autoplay">
-    </iframe>
+    <div class="video-container">
+        <!-- Play-Button -->
+        <button class="play-button" onclick="playVideo()"></button>
+        <div class="play-button-text">Klick mich!</div>
+        <!-- Eingebettetes Video von Google Drive -->
+        <iframe id="video" 
+            src="https://drive.google.com/file/d/170_zH4A1Bm5JH9DVcQWcw7Ow_3OYJmCl/preview"
+            allowfullscreen allow="autoplay">
+        </iframe>
+    </div>
+
+    <script>
+        function playVideo() {
+            const video = document.getElementById('video');
+            const playButton = document.querySelector('.play-button');
+            const playButtonText = document.querySelector('.play-button-text');
+
+            // Blende den Play-Button aus
+            playButton.style.display = 'none';
+            playButtonText.style.display = 'none';
+
+            // Zeige das Video an
+            video.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
