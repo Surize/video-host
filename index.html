@@ -37,11 +37,16 @@
 
         // Überprüfe kontinuierlich die aktuelle Zeit des Videos
         video.addEventListener('timeupdate', () => {
-            // Wenn mehr als 2 Sekunden abgespielt wurden und das Video stumm ist
+            // Nach 2 Sekunden die Lautstärke ändern, ohne das Video zu stoppen
             if (video.currentTime > 2 && video.muted) {
                 video.muted = false; // Deaktiviere Stummschaltung
-                video.volume = 0.5; // Setze die Lautstärke auf 50%
-                console.log("Lautstärke aktiviert nach 2 Sekunden.");
+                console.log("Stummschaltung deaktiviert.");
+            }
+            
+            // Lautstärke auf 50% setzen, aber nur wenn noch nicht passiert
+            if (video.currentTime > 2 && video.volume !== 0.5) {
+                video.volume = 0.5;
+                console.log("Lautstärke auf 50% gesetzt.");
             }
         });
     </script>
