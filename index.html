@@ -3,87 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Autoplay with Fake Interaction</title>
+    <title>Video with Background Audio</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
         }
-        #player {
+        video {
             width: 80%;
-            height: 450px;
+            height: auto;
+            max-width: 1000px;
+            max-height: 600px;
+            border: 3px solid #000;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <div id="player"></div>
+    <!-- Video -->
+    <video id="myVideo" src="https://raw.githubusercontent.com/Surize/video-host/main/y2mate.com%20-%20Rick%20Astley%20Never%20Gonna%20Give%20You%20Up%20Official%20Music%20Video_720.mp4" autoplay muted controls>
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Hintergrund-Audio -->
+    <audio id="backgroundAudio" src="https://raw.githubusercontent.com/Surize/video-host/main/y2mate.com%20-%20Rick%20Astley%20Never%20Gonna%20Give%20You%20Up%20Official%20Music%20Video.mp3" autoplay loop>
+        Your browser does not support the audio tag.
+    </audio>
 
     <script>
-        // Laden der YouTube IFrame API
-        let tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        let firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        const video = document.getElementById('myVideo');
+        const audio = document.getElementById('backgroundAudio');
 
-        let player;
-
-        // Initialisierung des YouTube-Players
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '450',
-                width: '80%',
-                videoId: 'dQw4w9WgXcQ', // YouTube-Video-ID
-                playerVars: {
-                    autoplay: 1, // Automatisches Abspielen
-                    mute: 1, // Stummschaltung
-                    controls: 1, // Steuerungen anzeigen
-                },
-                events: {
-                    onReady: onPlayerReady,
-                    onStateChange: onPlayerStateChange
-                }
-            });
-        }
-
-        // Simulierte Benutzerinteraktion
-        function fakeInteraction() {
-            const event = new MouseEvent('click', {
-                view: window,
-                bubbles: true,
-                cancelable: true
-            });
-            document.body.dispatchEvent(event);
-        }
-
-        // Wenn der Player bereit ist
-        function onPlayerReady(event) {
-            console.log("YouTube-Player bereit.");
-
-            // Simuliere eine Benutzerinteraktion
-            fakeInteraction();
-
-            // Nach 2 Sekunden Ton aktivieren und Lautstärke auf 50% setzen
-            setTimeout(() => {
-                player.unMute(); // Stummschaltung deaktivieren
-                player.setVolume(50); // Lautstärke auf 50%
-                console.log("Lautstärke auf 50% gesetzt.");
-            }, 2000);
-        }
-
-        // Überwachung des Player-Status
-        function onPlayerStateChange(event) {
-            // Wenn das Video pausiert wird (state 2)
-            if (event.data === YT.PlayerState.PAUSED) {
-                console.warn("Video wurde pausiert. Starte erneut...");
-                player.playVideo(); // Startet das Video erneut
+        // Starte Video und Audio synchron
+        window.addEventListener('load', () => {
+            try {
+                video.play();
+                audio.play();
+                console.log("Video und Audio laufen synchron.");
+            } catch (error) {
+                console.error("Autoplay blockiert:", error);
             }
-        }
+        });
+
+        // Synchronisiere Audio mit Video
+        video.addEventListener('pause', () => {
+            audio.pause();
+        });
+
+        video.addEventListener('play', () => {
+            audio.play();
+        });
     </script>
 </body>
 </html>
