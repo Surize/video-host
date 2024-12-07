@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Autoplay with Volume Adjustment</title>
+    <title>Video Autoplay with Timed Volume Adjustment</title>
     <style>
         /* Zentrierung des Inhalts */
         body {
@@ -35,16 +35,14 @@
     <script>
         const video = document.getElementById('myVideo');
 
-        // Warte, bis das Video abgespielt wird
-        video.addEventListener('play', () => {
-            console.log("Video gestartet. Lautstärke wird bald angepasst...");
-
-            // Nach 3 Sekunden die Lautstärke hochsetzen
-            setTimeout(() => {
-                video.muted = false; // Deaktiviert Stummschaltung
-                video.volume = 0.5; // Setzt Lautstärke auf 50%
-                console.log("Lautstärke auf 50% erhöht.");
-            }, 3000); // 3000ms = 3 Sekunden
+        // Überprüfe kontinuierlich die aktuelle Zeit des Videos
+        video.addEventListener('timeupdate', () => {
+            // Wenn mehr als 2 Sekunden abgespielt wurden und das Video stumm ist
+            if (video.currentTime > 2 && video.muted) {
+                video.muted = false; // Deaktiviere Stummschaltung
+                video.volume = 0.5; // Setze die Lautstärke auf 50%
+                console.log("Lautstärke aktiviert nach 2 Sekunden.");
+            }
         });
     </script>
 </body>
