@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Autoplay with Timed Volume Adjustment</title>
+    <title>Video Autoplay with Resume Logic</title>
     <style>
         /* Zentrierung des Inhalts */
         body {
@@ -35,19 +35,21 @@
     <script>
         const video = document.getElementById('myVideo');
 
-        // Überprüfe kontinuierlich die aktuelle Zeit des Videos
-        video.addEventListener('timeupdate', () => {
-            // Nach 2 Sekunden die Lautstärke ändern, ohne das Video zu stoppen
-            if (video.currentTime > 2 && video.muted) {
+        // Logik: Lautstärke anpassen und Pause überwachen
+        video.addEventListener('play', () => {
+            setTimeout(() => {
                 video.muted = false; // Deaktiviere Stummschaltung
-                console.log("Stummschaltung deaktiviert.");
-            }
-            
-            // Lautstärke auf 50% setzen, aber nur wenn noch nicht passiert
-            if (video.currentTime > 2 && video.volume !== 0.5) {
-                video.volume = 0.5;
+                video.volume = 0.5; // Setze Lautstärke auf 50%
                 console.log("Lautstärke auf 50% gesetzt.");
-            }
+            }, 1); // Minimaler Timeout von 1ms
+        });
+
+        // Überwachen, ob das Video pausiert wurde
+        video.addEventListener('pause', () => {
+            console.log("Video wurde pausiert. Starte erneut...");
+            video.play().catch(error => {
+                console.error("Autoplay blockiert beim erneuten Start:", error);
+            });
         });
     </script>
 </body>
