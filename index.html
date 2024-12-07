@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weihnachtlicher Stern mit Hover-Effekt</title>
+    <title>Weihnachtlicher Stern</title>
     <style>
         body {
             display: flex;
@@ -37,12 +37,6 @@
             cursor: pointer;
             border: none;
             outline: none;
-            transition: all 0.3s; /* Animation für den Hover-Effekt */
-        }
-        .play-button:hover {
-            background: url('https://img.icons8.com/fluency/96/FFD700/christmas-star.png') no-repeat center center;
-            background-size: contain;
-            transform: scale(1.2); /* Stern vergrößert sich leicht */
         }
         .play-button-text {
             position: absolute;
@@ -60,13 +54,14 @@
     <div class="video-container">
         <!-- Play-Button -->
         <button class="play-button" onclick="playVideo()"></button>
-        <div class="play-button-text">Klick mich!</div>
+        <div class="play-button-text">Klick mich den Stern!</div>
         <!-- Eingebettetes YouTube-Video -->
         <iframe id="video" 
             src="https://www.youtube.com/embed/uHgt8giw1LY?enablejsapi=1&rel=0&showinfo=0"
             allow="autoplay; encrypted-media"
             allowfullscreen>
         </iframe>
+        <div class="play-button-text">Frohe Weinachten HOHOHO</div>
     </div>
 
     <script>
