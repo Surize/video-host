@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Autoplay with Forced Resume</title>
+    <title>YouTube Autoplay</title>
     <style>
-        /* Zentrierung des Inhalts */
         body {
             display: flex;
             justify-content: center;
@@ -14,48 +13,37 @@
             margin: 0;
             background-color: #f0f0f0;
         }
-
-        /* Video-Styling */
-        video {
-            width: 90%;
-            height: auto;
-            max-width: 1000px;
-            max-height: 600px;
-            border: 3px solid #000;
+        iframe {
+            width: 80%;
+            height: 450px;
+            border: none;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <video id="myVideo" src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" autoplay muted controls>
-        Your browser does not support the video tag.
-    </video>
+    <!-- YouTube Iframe -->
+    <iframe id="youtubePlayer" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&enablejsapi=1"></iframe>
 
     <script>
-        const video = document.getElementById('myVideo');
+        const iframe = document.getElementById('youtubePlayer');
 
-        // Überwacht die Wiedergabe und Lautstärke
-        video.addEventListener('play', () => {
-            console.log("Video läuft, Lautstärke wird angepasst...");
-            setTimeout(() => {
-                try {
-                    video.muted = false; // Deaktiviere Stummschaltung
-                    video.volume = 0.5; // Setzt Lautstärke auf 50%
-                    console.log("Lautstärke auf 50% gesetzt.");
-                } catch (error) {
-                    console.error("Lautstärkeanpassung fehlgeschlagen:", error);
-                }
-            }, 500); // 500ms Verzögerung
-        });
+        // Nach 2 Sekunden den Ton aktivieren und Lautstärke auf 50% setzen
+        setTimeout(() => {
+            iframe.contentWindow.postMessage(JSON.stringify({
+                event: "command",
+                func: "unMute"
+            }), "*");
 
-        // Überwacht, ob das Video pausiert wurde
-        video.addEventListener('pause', () => {
-            console.warn("Video wurde pausiert. Versuche es erneut zu starten...");
-            video.play().catch(error => {
-                console.error("Autoplay erneut blockiert:", error);
-            });
-        });
+            iframe.contentWindow.postMessage(JSON.stringify({
+                event: "command",
+                func: "setVolume",
+                args: [50]
+            }), "*");
+
+            console.log("Lautstärke auf 50% gesetzt und Ton aktiviert.");
+        }, 2000);
     </script>
 </body>
 </html>
