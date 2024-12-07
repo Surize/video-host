@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Autoplay</title>
+    <title>YouTube Autoplay with Fake Interaction</title>
     <style>
         body {
             display: flex;
@@ -51,9 +51,22 @@
             });
         }
 
+        // Simulierte Benutzerinteraktion
+        function fakeInteraction() {
+            const event = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
+            document.body.dispatchEvent(event);
+        }
+
         // Wenn der Player bereit ist
         function onPlayerReady(event) {
             console.log("YouTube-Player bereit.");
+
+            // Simuliere eine Benutzerinteraktion
+            fakeInteraction();
 
             // Nach 2 Sekunden Ton aktivieren und Lautstärke auf 50% setzen
             setTimeout(() => {
