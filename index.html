@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Autoplay with Resume Logic</title>
+    <title>Video Autoplay with Forced Resume</title>
     <style>
         /* Zentrierung des Inhalts */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Vollbildhöhe */
+            height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
         }
 
         /* Video-Styling */
         video {
-            width: 90%; /* Erhöht die Breite des Videos */
-            height: auto; /* Höhe proportional zur Breite */
-            max-width: 1000px; /* Maximale Breite */
-            max-height: 600px; /* Maximale Höhe */
+            width: 90%;
+            height: auto;
+            max-width: 1000px;
+            max-height: 600px;
             border: 3px solid #000;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: Schatten */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -35,20 +35,25 @@
     <script>
         const video = document.getElementById('myVideo');
 
-        // Logik: Lautstärke anpassen und Pause überwachen
+        // Überwacht die Wiedergabe und Lautstärke
         video.addEventListener('play', () => {
+            console.log("Video läuft, Lautstärke wird angepasst...");
             setTimeout(() => {
-                video.muted = false; // Deaktiviere Stummschaltung
-                video.volume = 0.5; // Setze Lautstärke auf 50%
-                console.log("Lautstärke auf 50% gesetzt.");
-            }, 1); // Minimaler Timeout von 1ms
+                try {
+                    video.muted = false; // Deaktiviert Stummschaltung
+                    video.volume = 0.5; // Setzt Lautstärke auf 50%
+                    console.log("Lautstärke auf 50% gesetzt.");
+                } catch (error) {
+                    console.error("Lautstärkeanpassung fehlgeschlagen:", error);
+                }
+            }, 500); // 500ms Verzögerung
         });
 
-        // Überwachen, ob das Video pausiert wurde
+        // Überwacht, ob das Video pausiert wurde
         video.addEventListener('pause', () => {
-            console.log("Video wurde pausiert. Starte erneut...");
+            console.warn("Video wurde pausiert. Versuche es erneut zu starten...");
             video.play().catch(error => {
-                console.error("Autoplay blockiert beim erneuten Start:", error);
+                console.error("Autoplay erneut blockiert:", error);
             });
         });
     </script>
