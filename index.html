@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Video mit Hintergrundmusik</title>
+    <title>Mega Video mit MP3-Hintergrundmusik</title>
     <style>
         body {
             display: flex;
@@ -16,37 +16,28 @@
         }
         iframe {
             width: 80%;
-            height: 450px;
             border: none;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
+        .audio-embed {
+            margin-top: 20px;
+            width: 60%;
+            height: 100px;
+        }
     </style>
 </head>
 <body>
-    <!-- Video Embed von Mega -->
-    <iframe
+    <!-- Video von Mega -->
+    <iframe width="640" height="360" frameborder="0"
         src="https://mega.nz/embed/9spQIRKb#Zkwlkj9cDVNiglsb3Ez1vDQtqkwN6WXzGMJXrWLjcPk?autoplay=1&mute=1"
         allowfullscreen>
     </iframe>
 
-    <!-- Hintergrund-Audio -->
-    <audio id="backgroundAudio" src="https://mega.nz/embed/9spQIRKb#Zkwlkj9cDVNiglsb3Ez1vDQtqkwN6WXzGMJXrWLjcPk" autoplay loop>
-        Your browser does not support the audio tag.
-    </audio>
-
-    <script>
-        const audio = document.getElementById('backgroundAudio');
-
-        // Synchronisiere das Audio, falls es pausiert
-        window.addEventListener('load', () => {
-            try {
-                audio.play();
-                console.log("Hintergrundmusik läuft.");
-            } catch (error) {
-                console.error("Autoplay blockiert:", error);
-            }
-        });
-    </script>
+    <!-- Audio von Mega -->
+    <iframe class="audio-embed"
+        src="https://mega.nz/embed/g15GAagY#c5tVi740mtrYjC3v64gbaAPcNW839fVC5UeeENDykN_c1v1c"
+        allowfullscreen>
+    </iframe>
 </body>
 </html>
