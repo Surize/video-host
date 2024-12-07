@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Autoplay with Volume and Resize</title>
+    <title>Video Autoplay with Interaction</title>
     <style>
         /* Zentrierung des Inhalts */
         body {
@@ -25,25 +25,43 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: Schatten */
         }
+
+        /* Button-Styling */
+        button {
+            position: absolute;
+            bottom: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-    <video id="myVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted controls>
+    <video id="myVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" muted controls>
         Your browser does not support the video tag.
     </video>
+    <button id="playButton">Play Video</button>
 
     <script>
-        // Funktion wird aufgerufen, wenn die Seite geladen ist
-        window.addEventListener('load', () => {
-            const video = document.getElementById('myVideo');
+        const video = document.getElementById('myVideo');
+        const playButton = document.getElementById('playButton');
 
-            // Stummmodus deaktivieren und Lautstärke auf 50% setzen
-            video.muted = false; 
-            video.volume = 0.5;
-
-            // Versuche das Video abzuspielen
+        // Stellt sicher, dass der Button das Video mit Ton abspielt
+        playButton.addEventListener('click', () => {
+            video.muted = false; // Deaktiviert Stummmodus
+            video.volume = 0.5; // Setzt die Lautstärke auf 50%
             video.play().then(() => {
-                console.log("Video läuft mit 50% Lautstärke.");
+                console.log("Video wird abgespielt.");
+                playButton.style.display = 'none'; // Versteckt den Button nach dem Start
             }).catch(error => {
                 console.error("Autoplay wurde blockiert:", error);
             });
