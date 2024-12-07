@@ -4,10 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Host</title>
+    <style>
+        /* Body zentrieren */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Vollbildhöhe */
+            margin: 0;
+            background-color: #f0f0f0; /* Optionaler Hintergrund */
+        }
+
+        /* Video skalieren */
+        video {
+            max-width: 80%; /* Breite anpassen */
+            max-height: 80%; /* Höhe anpassen */
+            border: 2px solid #000; /* Optional: Rahmen */
+            border-radius: 10px; /* Optional: Abgerundete Ecken */
+        }
+    </style>
 </head>
 <body>
-    <h1>Video Autoplay Demo</h1>
-    <video src="https://drive.google.com/file/d/170_zH4A1Bm5JH9DVcQWcw7Ow_3OYJmCl/view?usp=drive_link" autoplay controls>
+    <h1 style="position: absolute; top: 10px; width: 100%; text-align: center;">Video Autoplay Demo</h1>
+    <video src="https://drive.google.com/uc?id=170_zH4A1Bm5JH9DVcQWcw7Ow_3OYJmCl" autoplay controls>
         Your browser does not support the video tag.
     </video>
 </body>
