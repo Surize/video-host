@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Autoplay</title>
+    <title>Video Autoplay with Volume Control</title>
     <style>
         /* Zentrierung des Inhalts */
         body {
@@ -25,8 +25,24 @@
     </style>
 </head>
 <body>
-    <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted controls>
+    <video id="myVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted controls>
         Your browser does not support the video tag.
     </video>
+
+    <script>
+        // Funktion wird aufgerufen, wenn die Seite geladen ist
+        window.addEventListener('load', () => {
+            const video = document.getElementById('myVideo');
+
+            // Entstummen und Lautstärke auf 50% setzen
+            video.muted = false;
+            video.volume = 0.5;
+
+            // Versucht, das Video erneut mit Ton abzuspielen
+            video.play().catch(error => {
+                console.error("Autoplay wurde blockiert:", error);
+            });
+        });
+    </script>
 </body>
 </html>
