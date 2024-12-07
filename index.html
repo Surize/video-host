@@ -28,7 +28,7 @@
     </style>
 </head>
 <body>
-    <video id="myVideo" src="https://drive.google.com/file/d/170_zH4A1Bm5JH9DVcQWcw7Ow_3OYJmCl/view?usp=sharing" autoplay muted controls>
+    <video id="myVideo" src="https://drive.google.com/uc?id=170_zH4A1Bm5JH9DVcQWcw7Ow_3OYJmCl" autoplay muted controls>
         Your browser does not support the video tag.
     </video>
 
@@ -40,7 +40,7 @@
             console.log("Video läuft, Lautstärke wird angepasst...");
             setTimeout(() => {
                 try {
-                    video.muted = false; // Deaktiviert Stummschaltung
+                    video.muted = false; // Deaktiviere Stummschaltung
                     video.volume = 0.5; // Setzt Lautstärke auf 50%
                     console.log("Lautstärke auf 50% gesetzt.");
                 } catch (error) {
