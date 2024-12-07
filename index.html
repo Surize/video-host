@@ -11,8 +11,9 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background: url('https://img.freepik.com/free-vector/christmas-seamless-pattern-with-gold-star-snowflakes_1284-48120.jpg') repeat;
             font-family: Arial, sans-serif;
+            overflow: hidden; /* Verhindert Scrollen */
         }
         .video-container {
             position: relative;
@@ -40,18 +41,41 @@
         }
         .play-button-text {
             position: absolute;
-            top: 110%;
+            bottom: -50px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             color: #d40000;
             text-align: center;
         }
+        .christmas-message {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1; /* Schneefall hinter den Play-Button setzen */
+        }
     </style>
 </head>
 <body>
+    <!-- Canvas für Schneefall -->
+    <canvas id="snow"></canvas>
+
     <div class="video-container">
+        <!-- Weihnachtsgruß -->
+        <div class="christmas-message">Frohe Weihnachten!</div>
         <!-- Play-Button -->
         <button class="play-button" onclick="playVideo()"></button>
         <div class="play-button-text">Klick den Stern!</div>
@@ -61,7 +85,6 @@
             allow="autoplay; encrypted-media"
             allowfullscreen>
         </iframe>
-        
     </div>
 
     <script>
@@ -80,6 +103,65 @@
             // Autoplay starten
             video.src += "&autoplay=1";
         }
+
+        // Schneefall-Animation
+        const canvas = document.getElementById('snow');
+        const ctx = canvas.getContext('2d');
+        const particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createSnowflake() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                speed: Math.random() * 2 + 0.5,
+                opacity: Math.random()
+            };
+        }
+
+        function drawSnowflakes() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.beginPath();
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                ctx.globalAlpha = p.opacity;
+                ctx.moveTo(p.x, p.y);
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false);
+            }
+            ctx.fill();
+        }
+
+        function updateSnowflakes() {
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.y += p.speed;
+                if (p.y > canvas.height) {
+                    particles[i] = createSnowflake();
+                    particles[i].y = 0;
+                }
+            }
+        }
+
+        function loop() {
+            drawSnowflakes();
+            updateSnowflakes();
+            requestAnimationFrame(loop);
+        }
+
+        for (let i = 0; i < 150; i++) {
+            particles.push(createSnowflake());
+        }
+
+        loop();
     </script>
 </body>
 </html>
